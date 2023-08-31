@@ -7,11 +7,10 @@
 
 <script>
 import Button from './Button.vue'
-
     export default {
         name: 'Header',
         props: {
-            title: String,
+            title: String
         },
         components: {
             Button
@@ -19,7 +18,7 @@ import Button from './Button.vue'
     }
 </script>
 
-<style scoped>
+<style scope>
     header {
         display: flex;
         justify-content: space-between;

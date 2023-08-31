@@ -1,25 +1,53 @@
 <template>
   <div class="container">
-    <Header title="Vue Task Tracker"/>
+    <Header title="Vue Task Tracker" />
+    <Tasks :tasks="tasks" />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Tasks from './components/Tasks.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
+    Tasks
+  },
+  data() {
+    return {
+      tasks: []
+    }
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: 'Buy a bread',
+        completed: true
+      },
+      {
+        id: 2,
+        text: 'Buy a milk',
+        completed: false
+      },
+      {
+        id: 3,
+        text: 'Buy a butter',
+        completed: true
+      },
+    ]
   }
 }
 </script>
 
-<style>
+<style scope>
 #app {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
@@ -36,7 +64,8 @@ export default {
   border: 1px solid;
   border-radius: 4px;
   cursor: pointer;
-    }
+}
+
 .btn:focus {
   outline: none;
 }
