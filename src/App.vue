@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Vue Task Tracker" />
-    <Tasks :tasks="tasks" />
+    <Tasks @add-completed="addCompleted" @delete-task="onDelete" :tasks="tasks" />
   </div>
 </template>
 
@@ -18,6 +18,16 @@ export default {
   data() {
     return {
       tasks: []
+    }
+  },
+  methods: {
+    onDelete(id) {
+      this.tasks = this.tasks.filter((task) => task.id !== id)
+    },
+    addCompleted(id) {
+      this.tasks = this.tasks.map((task) => task.id === id ?
+      {...task, completed: !task.completed} : task
+      )
     }
   },
   created() {

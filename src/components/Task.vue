@@ -1,7 +1,7 @@
 <template>
-    <p :class="[task.completed ? 'completed' : '', 'task']" class="task">
+    <p @dblclick="addCompleted(task.id)" :class="[task.completed ? 'completed' : '', 'task']" class="task">
         {{ task.text }}
-        <i class="fas fa-times" />
+        <i @click="deleteTask(task.id)" class="fas fa-times" />
     </p>
 </template>
 
@@ -11,6 +11,14 @@
         props: {
             task: Object
         },
+        methods: {
+            deleteTask(id) {
+                this.$emit('delete-task', id)
+            },
+            addCompleted(id) {
+                this.$emit('add-completed', id)
+            }
+        }
     }
 </script>
 

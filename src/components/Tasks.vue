@@ -1,6 +1,6 @@
 <template>
     <div :key="task.id" v-for="task in tasks" class="tasks">
-        <Task :task="task"/>
+        <Task @add-completed="$emit('add-completed', task.id)" @delete-task="$emit('delete-task', task.id)" :task="task"/>
     </div>
 </template>
 
@@ -13,6 +13,7 @@ import Task from './Task.vue'
         },
         components: {
             Task
-        }
+        },
+        emits: ['delete-task', 'add-completed']
     }
 </script>
