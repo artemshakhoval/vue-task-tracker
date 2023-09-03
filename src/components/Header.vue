@@ -1,7 +1,9 @@
 <template>
     <header>
         <h1>{{ title }}</h1>
-        <Button text="Add Task" color="green"/>
+        <Button @toggle-add-task="$emit('toggle-add-task')" 
+        :text="showAddTask ? 'Cancel' : 'Add Task'" 
+        :color="showAddTask ? 'red' : 'green'"/>
     </header>
 </template>
 
@@ -10,7 +12,8 @@ import Button from './Button.vue'
     export default {
         name: 'Header',
         props: {
-            title: String
+            title: String,
+            showAddTask: Boolean,
         },
         components: {
             Button
@@ -18,7 +21,7 @@ import Button from './Button.vue'
     }
 </script>
 
-<style scope>
+<style scoped>
     header {
         display: flex;
         justify-content: space-between;

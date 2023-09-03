@@ -22,7 +22,7 @@
     }
 </script>
 
-<style scope>
+<style scoped>
 .task {
     display: flex;
     justify-content: space-between;
