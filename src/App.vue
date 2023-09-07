@@ -30,36 +30,63 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
     },
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
+    async addTask(task) {
+      const res = await fetch('http://localhost:3000/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(task),
+      })
+      const data = await res.json()
+
+
+      this.tasks = [...this.tasks, data]
+
     },
-    onDelete(id) {
-      this.tasks = this.tasks.filter((task) => task.id !== id)
+    async onDelete(id) {
+      const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: 'DELETE'
+      })
+
+      res.status === 200 ? (this.tasks = this.tasks.filter((task) => task.id !== id)) : alert('Error deleting task')
+
+      
     },
-    addCompleted(id) {
+    async addCompleted(id) {
+      const toggleTask = await this.fetchTask(id)
+      const updateTask = {...toggleTask, completed: !toggleTask.completed}
+      
+      const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(updateTask)
+      })
+      const data = await res.json()
+
       this.tasks = this.tasks.map((task) => task.id === id ?
-      {...task, completed: !task.completed} : task
+      {...task, completed: data.completed} : task
       )
+    },
+    async fetchTasks() {
+    const res = await fetch('http://localhost:3000/tasks')
+
+    const data = await res.json()
+  
+    return data
+    },
+    async fetchTask(id) {
+    const res = await fetch(`http://localhost:3000/tasks/${id}`)
+
+    const data = await res.json()
+  
+    return data
     }
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: 'Buy a bread',
-        completed: true
-      },
-      {
-        id: 2,
-        text: 'Buy a milk',
-        completed: false
-      },
-      {
-        id: 3,
-        text: 'Buy a butter',
-        completed: true
-      },
-    ]
+  async created() {
+    this.tasks = await this.fetchTasks()
   }
 }
 </script>

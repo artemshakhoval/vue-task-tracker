@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "text": "Buy milk",
+      "completed": true,
+      "id": "1"
+    },
+    {
+      "text": "Buy bread",
+      "completed": true,
+      "id": "2"
+    },
+    {
+      "text": "Buy butter",
+      "completed": true,
+      "id": "3"
+    }
+  ]
+}
